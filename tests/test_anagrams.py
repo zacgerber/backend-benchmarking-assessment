@@ -1,37 +1,57 @@
 """ Test Suite for anagrams module. """
 import unittest
-from timeit import Timer
-from anagrams import find_anagrams
+import importlib
+import timeit
+import json
+import functools
 
 
 class TestAnagrams(unittest.TestCase):
     """
-        Benchmarking test case. We test actual functionality of find_anagrams
-        with doctests, which is why this test case excludes those unit tests.
+    Benchmarking test case. We test actual functionality of `find_anagrams`
+    with doctests, which is why this test case excludes those unit tests.
     """
+    def setUp(self):
+        module_name = 'anagrams'
+        """import the module(s) under test, in the context of this test fixture"""
+        try:
+            self.ana = importlib.import_module(module_name)
+        except ImportError:
+            self.fail('Unable to import module: ' + module_name)
 
     def run_find_anagrams(self, word_list, benchmark):
-        my_time = Timer(lambda: find_anagrams(word_list)).timeit(number=1)
-        my_time = round(my_time, 3)
+        """Helper func to time the find_anagrams() func"""
+        f = functools.partial(self.ana.find_anagrams, word_list)
+        t = timeit.Timer(f)
+        actual_time = round(t.timeit(number=1), 3)
         failure_text = (
             'find_anagrams took {} seconds, which exceeds the '
-            'benchmark of {} seconds'.format(my_time, benchmark)
+            'benchmark of {} seconds'.format(actual_time, benchmark)
             )
-        self.assertTrue(my_time <= benchmark, failure_text)
+        self.assertLessEqual(actual_time, benchmark, failure_text)
 
-    def test_short(self):
-        """ Test find_anagrams with short word list. """
+    def test_correct_result(self):
+        """Check the anagram dict result for correctness"""
         with open("words/short.txt") as f:
             short_list = f.read().split()
-        self.run_find_anagrams(short_list, 0.005)
+        actual_dict = self.ana.find_anagrams(short_list)
+        self.assertIsInstance(actual_dict, dict)
+        with open('tests/short_list.json') as f:
+            expected_dict = json.loads(f.read())
+        self.assertDictEqual(actual_dict, expected_dict)
 
+    def test_short(self):
+        """Check find_anagrams() func timing with short word list."""
+        with open("words/short.txt") as f:
+            short_list = f.read().split()
+        self.run_find_anagrams(short_list, 0.02)
 
     @unittest.skip("Remove this line once short test passes")
     def test_long(self):
-        """ Test find_anagrams with long word list. """
+        """Check find_anagrams() with long word list."""
         with open("words/long.txt") as f:
             long_list = f.read().split()
-        self.run_find_anagrams(long_list, 0.10)
+        self.run_find_anagrams(long_list, 0.30)
 
 
 if __name__ == '__main__':
