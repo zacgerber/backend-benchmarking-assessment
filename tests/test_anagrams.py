@@ -46,14 +46,14 @@ class TestAnagrams(unittest.TestCase):
         """Check find_anagrams() func timing with short word list."""
         with open("words/short.txt") as f:
             short_list = f.read().split()
-        self.run_find_anagrams(short_list, 0.02)
+        self.run_find_anagrams(short_list, 0.030)
 
     @unittest.skip("Remove this line once short test passes")
     def test_long(self):
         """Check find_anagrams() with long word list."""
         with open("words/long.txt") as f:
             long_list = f.read().split()
-        self.run_find_anagrams(long_list, 0.30)
+        self.run_find_anagrams(long_list, 0.500)
 
 
 if __name__ == '__main__':
