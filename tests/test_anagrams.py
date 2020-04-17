@@ -27,8 +27,8 @@ class TestAnagrams(unittest.TestCase):
         t = timeit.Timer(f)
         actual_time = round(t.timeit(number=1), 3)
         failure_text = (
-            'find_anagrams took {} seconds, which exceeds the '
-            'benchmark of {} seconds'.format(actual_time, benchmark)
+            f'\nfind_anagrams() took {actual_time:.03f} seconds, which exceeds the '
+            f'benchmark of {benchmark:.03f} seconds'
             )
         self.assertLessEqual(actual_time, benchmark, failure_text)
 
