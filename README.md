@@ -20,7 +20,7 @@ You can run the tests from the command line with the unittest framework. From th
 
 VS Code also has a built-in test discovery feature, but it requires you to enable test discovery in the settings. Read [this article](https://code.visualstudio.com/docs/python/testing#_test-discovery) for more information about how to configure VS Code for automatic test discovery.
 
-Be sure to select the configuration for `unittest`, and not `nosetest` or `pytest` because these are third-party libraries that you would have to install. The file discovery pattern to configure is `test_*.py`.
+Be sure to select the configuration for `unittest`, and not `nose` or `pytest` because these are third-party libraries that you would have to install. The file discovery pattern to configure is `test_*.py`.
 
 
 ## PR (Pull Request) Workflow for this assignment
