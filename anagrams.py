@@ -4,19 +4,19 @@
 Command line utility that accepts a word file and prints a dictionary of
 anagrams for that file.
 
-Module provides a function find_anagrams which can be used to do the same
+Module provides a function, find_anagrams(), which can be used to do the same
 for an arbitrary list of strings.
 """
-
-import sys
 
 # Your name here, and any other people/sources who helped.
 # Give credit where credit is due.
 __author__ = "???"
 
+import sys
+
 
 def alphabetize(string):
-    """Returns alphabetized version of the string"""
+    """Returns alphabetized version of the string."""
     return "".join(sorted(string.lower()))
 
 
@@ -45,7 +45,7 @@ def main(args):
         words = f.read().split()
     anagram_dict = find_anagrams(words)
     for k, v in anagram_dict.items():
-        print("{} : {}".format(k, v))
+        print(f"{k} : {v}")
 
 
 if __name__ == "__main__":
