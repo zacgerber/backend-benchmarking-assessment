@@ -15,7 +15,9 @@ class TestAnagrams(unittest.TestCase):
     """
     def setUp(self):
         module_name = 'anagrams'
-        """import the module(s) under test, in the context of this test fixture"""
+        """import the module(s) under test,
+        in the context of this test fixture
+        """
         try:
             self.ana = importlib.import_module(module_name)
         except ImportError:
@@ -48,7 +50,7 @@ class TestAnagrams(unittest.TestCase):
             short_list = f.read().split()
         self.run_find_anagrams(short_list, 0.030)
 
-    @unittest.skip("Remove this line once short test passes")
+    # @unittest.skip("Remove this line once short test passes")
     def test_long(self):
         """Check find_anagrams() with long word list."""
         with open("words/long.txt") as f:

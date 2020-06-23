@@ -13,6 +13,8 @@ for an arbitrary list of strings.
 __author__ = "???"
 
 import sys
+# import profile
+# from dec_profile import ret
 
 
 def alphabetize(string):
@@ -27,12 +29,25 @@ def find_anagrams(words):
     Example:
     {'dgo': ['dog'], 'act': ['cat', 'act']}
     """
-    anagrams = {
-        alphabetize(word): [
-            w for w in words
-            if alphabetize(w) == alphabetize(word)]
-        for word in words}
+
+    anagrams = {}
+    for word in words:
+        if alphabetize(word) not in anagrams:
+            anagrams[alphabetize(word)] = [word]
+        else:
+            anagrams[alphabetize(word)].append(word)
     return anagrams
+
+        # if previous_word not in mimic_dict:
+        #     mimic_dict[previous_word] = [word]
+        # else:
+        #     mimic_dict[previous_word].append(word)
+        # previous_word = word
+    #     alphabetize(word): [
+    #         w for w in words
+    #         if alphabetize(w) == alphabetize(word)]
+    #     for word in words}
+    # return anagrams
 
 
 def main(args):
@@ -44,6 +59,7 @@ def main(args):
     with open(args[0]) as f:
         words = f.read().split()
     anagram_dict = find_anagrams(words)
+    # profile.run('print(find_anagrams(words/short.txt))')
     for k, v in anagram_dict.items():
         print(f"{k} : {v}")
 
